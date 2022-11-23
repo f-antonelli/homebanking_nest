@@ -5,10 +5,9 @@ import { AuthModule } from './auth/auth.module';
 import { typeOrmAsyncConfig } from './config/typeorm.config';
 
 import { AccountModule } from './account/account.module';
-
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ envFilePath: `${process.env.NODE_ENV}.env` }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     AuthModule,
     AccountModule,
