@@ -5,6 +5,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { ApiResponseProperty } from '@nestjs/swagger';
 
 export class LoginUserDto {
   @IsString()
@@ -19,4 +20,7 @@ export class LoginUserDto {
       'The password must have a Uppercase, lowercase letter and a number',
   })
   password: string;
+
+  @ApiResponseProperty()
+  token: string;
 }
