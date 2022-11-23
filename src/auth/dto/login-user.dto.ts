@@ -5,13 +5,19 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { ApiResponseProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 
 export class LoginUserDto {
+  @ApiProperty({
+    example: 'neymar@gmail.com',
+  })
   @IsString()
   @IsEmail()
   email: string;
 
+  @ApiProperty({
+    example: 'arg1234567',
+  })
   @IsString()
   @MinLength(6)
   @MaxLength(15)
@@ -21,6 +27,6 @@ export class LoginUserDto {
   })
   password: string;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ example: 'dajklswhedjk231hedlsakjhd' })
   token: string;
 }
