@@ -11,10 +11,10 @@ import { TransactionsModule } from './transactions/transactions.module';
   imports: [
     ConfigModule.forRoot({ envFilePath: `${process.env.NODE_ENV}.env` }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-    AuthModule,
     AccountModule,
-    TransactionsModule,
+    AuthModule,
     CommonModule,
+    TransactionsModule,
   ],
 })
 export class AppModule {}

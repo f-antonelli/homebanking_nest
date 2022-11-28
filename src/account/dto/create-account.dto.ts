@@ -1,14 +1,13 @@
-import { IsString, IsNumber  } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 import { User } from 'src/auth/entities/user.entity';
 
 export class CreateAccountDto {
+  @IsString()
+  numAccount: string;
 
-    @IsString()
-    numAccount: string;
+  @IsNumber()
+  amount: number;
 
-    @IsNumber()
-    amount: Number;
-
-    @IsString()
-    userId: User;
+  @IsString()
+  userId: User;
 }
