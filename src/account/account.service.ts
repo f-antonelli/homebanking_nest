@@ -6,6 +6,8 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isUUID } from 'class-validator';
+
+import { RequestUser } from 'src/auth/interfaces/request-user.interface';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { Repository } from 'typeorm';
 import { CreateAccountDto } from './dto/create-account.dto';
@@ -19,9 +21,12 @@ export class AccountService {
     private readonly accountRepository: Repository<Account>,
   ) {}
 
-  async create(createAccountDto: CreateAccountDto) {
+  async create(createAccountDto: CreateAccountDto, request: RequestUser) {
     try {
-      const account = this.accountRepository.create(createAccountDto);
+      const account = this.accountRepository.create({
+        userId: request,
+        ...createAccountDto,
+      });
       await this.accountRepository.save(account);
       return account;
     } catch (error) {

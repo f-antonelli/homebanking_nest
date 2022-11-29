@@ -8,8 +8,10 @@ import {
   Patch,
   ParseUUIDPipe,
   Delete,
+  Req,
 } from '@nestjs/common';
 import { Auth } from 'src/auth/decorators';
+
 import { ValidRoles } from 'src/auth/interfaces/valid-roles.interface';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { AccountService } from './account.service';
@@ -22,8 +24,8 @@ export class AccountController {
 
   @Post('')
   @Auth(ValidRoles.user)
-  createAccount(@Body() createAccountDto: CreateAccountDto) {
-    return this.accountService.create(createAccountDto);
+  createAccount(@Body() createAccountDto: CreateAccountDto, @Req() request) {
+    return this.accountService.create(createAccountDto, request.user);
   }
 
   @Get()

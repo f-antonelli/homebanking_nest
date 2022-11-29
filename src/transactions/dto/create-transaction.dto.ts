@@ -5,7 +5,7 @@ export class CreateTransactionDto {
   numOperation: string;
 
   @IsString()
-  @IsIn(['visa', 'master'])
+  @IsIn(['EGRESS', 'INCOME'])
   type: string;
 
   @IsString()
@@ -17,9 +17,9 @@ export class CreateTransactionDto {
 
   @IsNumber()
   @IsPositive()
-  accDestination: number;
+  accDestination: string;
 
   @IsNumber()
   @IsPositive()
-  accOrigin: number;
+  accOrigin: string;
 }

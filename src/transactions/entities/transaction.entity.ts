@@ -9,18 +9,18 @@ export class Transaction {
   @PrimaryGeneratedColumn('uuid')
   numOperation: string;
 
-  @Column({ type: 'string' })
+  @Column({ type: 'text' })
   type: string;
 
-  @Column({ type: 'string' })
+  @Column({ type: 'text' })
   card: string;
 
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   amount: number;
 
-  @Column({ type: 'number' })
-  accDestination: number;
+  @ManyToOne(() => Account, (account) => account.id)
+  accDestination: string;
 
-  @ManyToOne(() => Account, (account) => account.numAccount)
-  accOrigin: number;
+  @ManyToOne(() => Account, (account) => account.id)
+  accOrigin: string;
 }
