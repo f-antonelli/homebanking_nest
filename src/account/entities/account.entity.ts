@@ -15,7 +15,7 @@ export class Account {
   @Column({ type: 'text', unique: true })
   numAccount: string;
 
-  @Column({ type: 'numeric' })
+  @Column({ type: 'int' })
   amount: number;
 
   @OneToOne(() => User)

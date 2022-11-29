@@ -24,7 +24,7 @@ export class AccountService {
   async create(createAccountDto: CreateAccountDto, request: RequestUser) {
     try {
       const account = this.accountRepository.create({
-        userId: request,
+        userId: request.id,
         ...createAccountDto,
       });
       await this.accountRepository.save(account);
