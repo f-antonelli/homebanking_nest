@@ -1,5 +1,11 @@
 import { Account } from 'src/account/entities/account.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  BeforeInsert,
+} from 'typeorm';
 
 @Entity('transactions')
 export class Transaction {
@@ -23,4 +29,9 @@ export class Transaction {
 
   @ManyToOne(() => Account, (account) => account.id)
   accOrigin: string;
+
+  @BeforeInsert()
+  checkFieldsBeforeInsert() {
+    this.type = this.type.toLocaleUpperCase().trim();
+  }
 }

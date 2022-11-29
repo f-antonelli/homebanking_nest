@@ -29,7 +29,7 @@ export class AccountController {
   }
 
   @Get()
-  @Auth(ValidRoles.user)
+  @Auth(ValidRoles.admin)
   findAll(@Query() paginationDto: PaginationDto) {
     return this.accountService.findAll(paginationDto);
   }

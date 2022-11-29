@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   InternalServerErrorException,
-  UnauthorizedException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -11,6 +10,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { Account } from 'src/account/entities/account.entity';
+
 @Injectable()
 export class TransactionsService {
   constructor(
@@ -33,9 +33,7 @@ export class TransactionsService {
       });
 
       if (!accountOrigin || !accountDest)
-        throw new NotFoundException(
-          `Account with id: ${accountOrigin.id || accountDest.id} not found`,
-        );
+        throw new NotFoundException(`Account with id not found`);
 
       const trx = this.trxRepository.create({ ...transaction });
 
@@ -55,6 +53,7 @@ export class TransactionsService {
       await this.accRepository.update(transaction.accOrigin, {
         amount: newAccAmounts.origin,
       });
+
       await this.accRepository.update(transaction.accDestination, {
         amount: newAccAmounts.dest,
       });

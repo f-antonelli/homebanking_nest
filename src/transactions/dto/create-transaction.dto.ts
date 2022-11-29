@@ -1,11 +1,12 @@
-import { IsIn, IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsPositive, IsString } from 'class-validator';
+
+enum Types {
+  EGRESS,
+  INCOME,
+}
 
 export class CreateTransactionDto {
-  @IsString()
-  numOperation: string;
-
-  @IsString()
-  @IsIn(['EGRESS', 'INCOME'])
+  @IsEnum(Types)
   type: string;
 
   @IsString()
@@ -15,11 +16,9 @@ export class CreateTransactionDto {
   @IsPositive()
   amount: number;
 
-  @IsNumber()
-  @IsPositive()
+  @IsString()
   accDestination: string;
 
-  @IsNumber()
-  @IsPositive()
+  @IsString()
   accOrigin: string;
 }
