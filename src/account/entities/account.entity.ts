@@ -10,7 +10,6 @@ import {
 
 @Entity('account')
 export class Account {
-
   @ApiProperty({
     example: 'UUID: 50fbcf31-ea7e-432a-9a62-de3851d5e4a0',
   })
@@ -18,19 +17,19 @@ export class Account {
   id: string;
 
   @ApiProperty({
-    example: '3450204958690'
+    example: '3450204958690',
   })
   @Column({ type: 'text', unique: true })
   numAccount: string;
 
   @ApiProperty({
-    example: '123456'
+    example: '123456',
   })
   @Column({ type: 'int' })
   amount: number;
 
   @ApiProperty({
-    example: 'user.id'
+    example: 'user.id',
   })
   @OneToOne(() => User)
   @JoinColumn()
