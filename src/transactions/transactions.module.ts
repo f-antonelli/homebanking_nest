@@ -6,6 +6,7 @@ import { AccountModule } from 'src/account/account.module';
 import { Transaction } from './entities/transaction.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Account } from 'src/account/entities/account.entity';
+import { CommonModule } from 'src/common/common.module';
 
 @Module({
   controllers: [TransactionsController],
@@ -14,6 +15,7 @@ import { Account } from 'src/account/entities/account.entity';
     TypeOrmModule.forFeature([Transaction, Account]),
     AuthModule,
     AccountModule,
+    CommonModule,
   ],
   exports: [TypeOrmModule],
 })
