@@ -18,7 +18,7 @@ yarn install
 #### 4. Use docker to set up database
 
 ```
-docker-compose up -d
+docker compose --env-file development.env up -d
 ```
 
 #### 5. Run dev mode

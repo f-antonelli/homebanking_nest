@@ -21,10 +21,10 @@ export class AccountService {
     private readonly accountRepository: Repository<Account>,
   ) {}
 
-  async create(createAccountDto: CreateAccountDto, request: RequestUser) {
+  async create(createAccountDto: CreateAccountDto, user: RequestUser) {
     try {
       const account = this.accountRepository.create({
-        userId: request.id,
+        userId: user.id,
         ...createAccountDto,
       });
       await this.accountRepository.save(account);
