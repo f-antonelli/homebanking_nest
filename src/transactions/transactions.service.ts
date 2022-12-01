@@ -11,7 +11,6 @@ import { Transaction } from './entities/transaction.entity';
 import { Account } from 'src/account/entities/account.entity';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { isUUID } from 'class-validator';
-import { User } from 'src/auth/entities/user.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -89,16 +88,24 @@ export class TransactionsService {
   }
 
   async remove(id: string) {
-    const trx = await this.trxRepository.findOneBy({ id });
+    try {
+      const trx = await this.trxRepository.findOneBy({ id });
 
-    await this.trxRepository.remove(trx);
+      await this.trxRepository.remove(trx);
+
+      return `Transaction with id ${id} has been deleted`;
+    } catch (error) {
+      this.handleDBErrors(error);
+    }
   }
 
   async removeAll() {
     const query = this.trxRepository.createQueryBuilder('transaction');
 
     try {
-      return await query.delete().where({}).execute();
+      await query.delete().where({}).execute();
+
+      return 'All transactions have been deleted';
     } catch (error) {
       this.handleDBErrors(error);
     }
