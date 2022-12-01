@@ -1,4 +1,11 @@
-import { IsEnum, IsNumber, IsPositive, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsPositive,
+  IsString,
+  IsUUID,
+  Length,
+} from 'class-validator';
 
 enum Types {
   EGRESS,
@@ -10,15 +17,16 @@ export class CreateTransactionDto {
   type: string;
 
   @IsString()
+  @Length(16, 16)
   card: string;
 
   @IsNumber()
   @IsPositive()
   amount: number;
 
-  @IsString()
+  @IsUUID()
   accDestination: string;
 
-  @IsString()
+  @IsUUID()
   accOrigin: string;
 }

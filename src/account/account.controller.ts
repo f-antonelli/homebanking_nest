@@ -8,7 +8,6 @@ import {
   Patch,
   ParseUUIDPipe,
   Delete,
-  Req,
 } from '@nestjs/common';
 import {
   ApiCreatedResponse,
@@ -20,7 +19,6 @@ import {
 } from '@nestjs/swagger';
 import { Auth, GetUser } from 'src/auth/decorators';
 import { User } from 'src/auth/entities/user.entity';
-
 import { ValidRoles } from 'src/auth/interfaces/valid-roles.interface';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { AccountService } from './account.service';

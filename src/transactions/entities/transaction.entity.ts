@@ -12,9 +12,6 @@ export class Transaction {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @PrimaryGeneratedColumn('uuid')
-  numOperation: string;
-
   @Column({ type: 'text' })
   type: string;
 
