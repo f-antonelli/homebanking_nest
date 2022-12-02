@@ -6,6 +6,7 @@ import { typeOrmAsyncConfig } from './config/typeorm.config';
 import { AccountModule } from './account/account.module';
 import { CommonModule } from './common/common.module';
 import { TransactionsModule } from './transactions/transactions.module';
+import { CardsModule } from './cards/cards.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TransactionsModule } from './transactions/transactions.module';
     AuthModule,
     CommonModule,
     TransactionsModule,
+    CardsModule,
   ],
 })
 export class AppModule {}
