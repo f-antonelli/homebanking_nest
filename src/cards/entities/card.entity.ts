@@ -22,6 +22,6 @@ export class Card {
 
     @OneToOne(() => Account)
     @JoinColumn()
-    id_account: Account;
+    accountId: Account;
 
 }
