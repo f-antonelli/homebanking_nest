@@ -8,11 +8,17 @@ import {
   Patch,
   ParseUUIDPipe,
   Delete,
-  Req,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
-import { Auth } from 'src/auth/decorators';
-
+import {
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiUnprocessableEntityResponse,
+} from '@nestjs/swagger';
+import { Auth, GetUser } from 'src/auth/decorators';
+import { User } from 'src/auth/entities/user.entity';
 import { ValidRoles } from 'src/auth/interfaces/valid-roles.interface';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { AccountService } from './account.service';
@@ -27,25 +33,28 @@ export class AccountController {
 
   @ApiCreatedResponse({
     type: Account,
-    description: 'Account created succesfully'
+    description: 'Account created succesfully',
   })
   @ApiUnprocessableEntityResponse({
-    description: 'Bad request'
+    description: 'Bad request',
   })
   @Post('')
   @Auth(ValidRoles.user)
-  createAccount(@Body() createAccountDto: CreateAccountDto, @Req() request) {
-    return this.accountService.create(createAccountDto, request.user);
+  createAccount(
+    @Body() createAccountDto: CreateAccountDto,
+    @GetUser() user: User,
+  ) {
+    return this.accountService.create(createAccountDto, user);
   }
 
   @ApiOkResponse({
-    description: 'The resources were returned succesfully'
+    description: 'The resources were returned succesfully',
   })
   @ApiForbiddenResponse({
-    description: 'Unauthorized request'
+    description: 'Unauthorized request',
   })
   @ApiNotFoundResponse({
-    description: 'Resource not found'
+    description: 'Resource not found',
   })
   @Get()
   @Auth(ValidRoles.admin)
@@ -54,13 +63,13 @@ export class AccountController {
   }
 
   @ApiOkResponse({
-    description: 'The resources were returned succesfully'
+    description: 'The resources were returned succesfully',
   })
   @ApiForbiddenResponse({
-    description: 'Unauthorized request'
+    description: 'Unauthorized request',
   })
   @ApiNotFoundResponse({
-    description: 'Resource not found'
+    description: 'Resource not found',
   })
   @Get(':uuid')
   @Auth(ValidRoles.user)
@@ -69,16 +78,16 @@ export class AccountController {
   }
 
   @ApiOkResponse({
-    description: 'The resources was updated succesfully'
+    description: 'The resources was updated succesfully',
   })
   @ApiNotFoundResponse({
-    description: 'Resource not found'
+    description: 'Resource not found',
   })
   @ApiForbiddenResponse({
-    description: 'Unauthorized request'
+    description: 'Unauthorized request',
   })
   @ApiUnprocessableEntityResponse({
-    description: 'Bad request'
+    description: 'Bad request',
   })
   @Patch(':id')
   @Auth(ValidRoles.user)
@@ -90,13 +99,13 @@ export class AccountController {
   }
 
   @ApiOkResponse({
-    description: 'The resource was deleted succesfully'
+    description: 'The resource was deleted succesfully',
   })
   @ApiForbiddenResponse({
-    description: 'Unauthorized request'
+    description: 'Unauthorized request',
   })
   @ApiNotFoundResponse({
-    description: 'Resource not found'
+    description: 'Resource not found',
   })
   @Delete(':id')
   @Auth(ValidRoles.user)
