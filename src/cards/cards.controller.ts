@@ -1,34 +1,53 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+} from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators';
+import { ValidRoles } from 'src/auth/interfaces/valid-roles.interface';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { CardsService } from './cards.service';
 import { CreateCardDto } from './dto/create-card.dto';
 import { UpdateCardDto } from './dto/update-card.dto';
 
+@ApiTags('Cards')
 @Controller('cards')
 export class CardsController {
   constructor(private readonly cardsService: CardsService) {}
 
   @Post()
+  @Auth(ValidRoles.user)
   create(@Body() createCardDto: CreateCardDto) {
     return this.cardsService.create(createCardDto);
   }
 
   @Get()
-  findAll() {
-    return this.cardsService.findAll();
+  @Auth(ValidRoles.admin)
+  findAll(@Query() paginationDto: PaginationDto) {
+    return this.cardsService.findAll(paginationDto);
   }
 
   @Get(':id')
+  @Auth(ValidRoles.user)
   findOne(@Param('id') id: string) {
-    return this.cardsService.findOne(+id);
+    return this.cardsService.findOne(id);
   }
 
   @Patch(':id')
+  @Auth(ValidRoles.user)
   update(@Param('id') id: string, @Body() updateCardDto: UpdateCardDto) {
-    return this.cardsService.update(+id, updateCardDto);
+    return this.cardsService.update(id, updateCardDto);
   }
 
   @Delete(':id')
+  @Auth(ValidRoles.user)
   remove(@Param('id') id: string) {
-    return this.cardsService.remove(+id);
+    return this.cardsService.remove(id);
   }
 }

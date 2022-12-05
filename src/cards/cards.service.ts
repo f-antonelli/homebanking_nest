@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isUUID } from 'class-validator';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
@@ -12,7 +17,7 @@ export class CardsService {
   constructor(
     @InjectRepository(Card)
     private readonly cardRepository: Repository<Card>,
-  ){}
+  ) {}
 
   async create(createCardDto: CreateCardDto) {
     try {
@@ -28,8 +33,8 @@ export class CardsService {
 
   findAll(paginationDto: PaginationDto) {
     const { limit = 10, offset = 0 } = paginationDto;
-    
-    return  this.cardRepository.find({
+
+    return this.cardRepository.find({
       take: limit,
       skip: offset,
     });
@@ -38,7 +43,7 @@ export class CardsService {
   async findOne(uuid: string) {
     let card: Card;
 
-    if(isUUID(uuid)){
+    if (isUUID(uuid)) {
       card = await this.cardRepository.findOneBy({
         id: uuid,
       });
@@ -47,7 +52,7 @@ export class CardsService {
       const queryBuilder = this.cardRepository.createQueryBuilder('card');
       card = await queryBuilder.where('card.id = :id', { uuid }).getOne();
     }
-    if(!card) throw new NotFoundException(`Card with ${uuid} not found`);
+    if (!card) throw new NotFoundException(`Card with ${uuid} not found`);
   }
 
   async update(id: string, updateCardDto: UpdateCardDto) {
@@ -56,7 +61,7 @@ export class CardsService {
       ...updateCardDto,
     });
 
-    if(!card){
+    if (!card) {
       throw new NotFoundException(`Card with id ${id} not found`);
     }
 
