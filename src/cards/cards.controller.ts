@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Auth } from 'src/auth/decorators';
@@ -33,10 +34,10 @@ export class CardsController {
     return this.cardsService.findAll(paginationDto);
   }
 
-  @Get(':id')
+  @Get(':uuid')
   @Auth(ValidRoles.user)
-  findOne(@Param('id') id: string) {
-    return this.cardsService.findOne(id);
+  findOne(@Param('uuid') uuid: string) {
+    return this.cardsService.findOne(uuid);
   }
 
   @Patch(':id')
@@ -47,7 +48,7 @@ export class CardsController {
 
   @Delete(':id')
   @Auth(ValidRoles.user)
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.cardsService.remove(id);
   }
 }
