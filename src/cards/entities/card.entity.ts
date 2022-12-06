@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Account } from 'src/account/entities/account.entity';
 import {
   Column,
